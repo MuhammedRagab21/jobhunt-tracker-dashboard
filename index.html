@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Job Hunt Tracker — Muhammed Ragab</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; background: #0f1117; color: #e5e7eb; margin: 0; padding: 24px; }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .meta { color: #9ca3af; font-size: 13px; margin-bottom: 20px; }
+  .cards { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .card { background: #1a1d29; border-radius: 10px; padding: 14px 18px; min-width: 120px; }
+  .card .n { font-size: 26px; font-weight: 700; }
+  .card .l { font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: .04em; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 8px; border-bottom: 2px solid #2a2e3f; color: #9ca3af; font-size: 11px; text-transform: uppercase; }
+  td { padding: 10px 8px; border-bottom: 1px solid #22263a; vertical-align: top; }
+  tr:hover { background: #161925; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; color: #0f1117; }
+  .notes { color: #9ca3af; max-width: 420px; }
+  .filterbar { margin-bottom: 14px; }
+  .filterbar button { background: #1a1d29; color: #e5e7eb; border: 1px solid #2a2e3f; border-radius: 6px; padding: 6px 12px; margin-right: 6px; cursor: pointer; font-size: 12px; }
+  .filterbar button.active { background: #3b82f6; border-color: #3b82f6; }
+  a { color: #60a5fa; }
+</style>
+</head>
+<body>
+<h1>Job Hunt Tracker</h1>
+<div class="meta">Generated 2026-11-09 14:49 &middot; 8 applications tracked &middot; data: tracker/applications.csv</div>
+
+<div class="cards" id="cards"></div>
+<div class="filterbar" id="filterbar"></div>
+<table id="tbl">
+  <thead>
+    <tr>
+      <th>Status</th><th>Job</th><th>Org / Country</th><th>Salary</th><th>Source</th><th>Dates</th><th>Notes</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+<script>
+const rows = [{"date_found": "2026-11-09", "source": "ESLGorilla", "job_title": "ESL/IELTS General Teacher", "school_org": "Good Foundation Forming (GFF)", "country": "Mongolia", "native_speaker_required": "no", "salary_range": "$1,000-$1,200/mo", "visa_sponsorship": "unknown", "cv_variant_used": "general_asia", "status": "interview_requested", "applied_date": "2026-11-08", "follow_up_date": "", "notes": "Applied via gulf-account inbox thread 2026-11-08; recruiter replied 2026-11-09 asking 'Do you live in Vietnam, I would like to interview you' - REPLY NEEDS USER'S PERSONAL ATTENTION, not auto-scheduled. NOTE: the sent cover letter overstated facts (stated C1 cert and MSc in Data Science as currently held, without the expired/in-progress caveats) - flag for correction if interview proceeds."}, {"date_found": "2026-11-09", "source": "Dave's ESL Cafe (via esl.careers listing text)", "job_title": "Kindergarten English Teacher (Beijing", "school_org": " ASAP)", "country": "ESL Asia Recruiting Agency (eslteachingjobinasia.com)", "native_speaker_required": "China", "salary_range": "no (native OR non-native with valid teaching license e.g. PGCE/QTS)", "visa_sponsorship": "RMB 25,000-32,000/mo", "cv_variant_used": "unknown", "status": "cv_china", "applied_date": "applied", "follow_up_date": "2026-11-09", "notes": "2026-11-23", "null": ["Listing explicitly allows non-native applicants holding a valid teaching license (PGCE/QTS/state cert) - user's PGCE (LJMU, Merit) qualifies. Cover letter sent + CV attached as follow-up email via china account to eslteachingjobsinasia@gmail.com. Min 2yrs kindergarten/training-center experience required - user meets via Vietnam experience. Agency has established multi-country presence (eslteachingjobinasia.com), no upfront fee requested."]}, {"date_found": "2026-11-09", "source": "Dave's ESL Cafe (via esl.careers)", "job_title": "ASAP High Paying Kindergarten/Public School/University Teaching Jobs", "school_org": "Click China Cultural Exchange Co. Ltd", "country": "China", "native_speaker_required": "yes", "salary_range": "CNY15,000-35,000/mo", "visa_sponsorship": "unknown", "cv_variant_used": "", "status": "skipped_other", "applied_date": "", "follow_up_date": "", "notes": "esl.careers listing shows explicit Eligibility: 'Native English speaker' - excluded, not a match for non-native profile."}, {"date_found": "2026-11-09", "source": "Dave's ESL Cafe (via tesljobs.com)", "job_title": "Math/English Teachers (incl. Primary English)", "school_org": "Tselmeg Digital International School", "country": "Mongolia", "native_speaker_required": "not stated", "salary_range": "unknown", "visa_sponsorship": "unknown", "cv_variant_used": "", "status": "skipped_other", "applied_date": "", "follow_up_date": "", "notes": "Cambridge-curriculum school in Ulaanbaatar - good profile fit, but tesljobs.com listing is marked 'This job has expired' as of 2026-11-09. Re-check in future runs in case reposted."}, {"date_found": "2026-11-09", "source": "ESL Cafe", "job_title": "ENGLISH TEACHERS TO UZBEKISTAN (MoE contract)", "school_org": "Minecraft Consulting Pvt Ltd / Uzbekistan Ministry of Preschool & School Education", "country": "Uzbekistan", "native_speaker_required": "not explicitly stated", "salary_range": "$1,000-3,500/mo + housing/flight/visa", "visa_sponsorship": "yes (flight/visa reimbursed)", "cv_variant_used": "", "status": "skipped_other", "applied_date": "", "follow_up_date": "", "notes": "Government contract via recruiting agency; requires police clearance + WhatsApp/passport copy before interview which is normal for this channel, not a fee request - but same posting type flagged native-leaning in prior runs and requires Dec 2026 relocation on short notice with unclear vetting; holding off pending clearer verification of agency legitimacy before sending personal documents. Not a scam-fee case, just deprioritized this run."}, {"date_found": "2026-11-09", "source": "ESL Cafe / Teast.co", "job_title": "ESL and IELTS Teachers in Uzbekistan", "school_org": "STARS Academy", "country": "Uzbekistan", "native_speaker_required": "yes", "salary_range": "UZS 5", "visa_sponsorship": "500", "cv_variant_used": "000/week", "status": "unknown", "applied_date": "", "follow_up_date": "skipped_other", "notes": "", "null": ["", "Teast.co listing explicitly states 'looking for native English teachers' - excluded."]}, {"date_found": "2026-11-09", "source": "ESL Cafe / esl.careers", "job_title": "ESL/Italian Teachers Astana", "school_org": "Kazakhstan International Linguistic College (KILC)", "country": "Kazakhstan", "native_speaker_required": "yes", "salary_range": "$1,000-1,200/mo", "visa_sponsorship": "unknown", "cv_variant_used": "", "status": "skipped_other", "applied_date": "", "follow_up_date": "", "notes": "Teast.co listing explicitly requires 'Female/Male Native English speaker' - excluded."}, {"date_found": "2026-11-09", "source": "ESLGorilla", "job_title": "Kindergarten Teacher (multi-city)", "school_org": "Beijing International Kindergarten", "country": "China", "native_speaker_required": "no", "salary_range": "CNY22,000-30,000/mo (est.)", "visa_sponsorship": "unknown", "cv_variant_used": "", "status": "new", "applied_date": "", "follow_up_date": "", "notes": "Tagged non-native OK on ESLGorilla; Beijing/Changsha/Shenzhen/Guangzhou; link: https://eslgorilla.com/jobs/kids-teacher-beijing-china"}];
+const colors = {"interview_requested": "#22c55e", "applied": "#3b82f6", "new": "#a3a3a3", "skipped_other": "#eab308", "skipped_scam_risk": "#ef4444", "rejected": "#71717a"};
+let activeFilter = null;
+
+function badge(status) {
+  const c = colors[status] || '#71717a';
+  return `<span class="badge" style="background:${c}">${status.replace(/_/g,' ')}</span>`;
+}
+
+function render() {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  const filtered = activeFilter ? rows.filter(r => r.status === activeFilter) : rows;
+  filtered.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${badge(r.status)}</td>
+      <td><b>${r.job_title}</b></td>
+      <td>${r.school_org}<br><span style="color:#9ca3af">${r.country}</span></td>
+      <td>${r.salary_range || '-'}</td>
+      <td>${r.source}</td>
+      <td style="font-size:11px;color:#9ca3af">found: ${r.date_found||'-'}<br>applied: ${r.applied_date||'-'}<br>follow-up: ${r.follow_up_date||'-'}</td>
+      <td class="notes">${r.notes||''}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderCards() {
+  const counts = {};
+  rows.forEach(r => counts[r.status] = (counts[r.status]||0)+1);
+  const cardsEl = document.getElementById('cards');
+  cardsEl.innerHTML = Object.entries(counts).map(([s,n]) =>
+    `<div class="card"><div class="n" style="color:${colors[s]||'#fff'}">${n}</div><div class="l">${s.replace(/_/g,' ')}</div></div>`
+  ).join('');
+}
+
+function renderFilterbar() {
+  const counts = {};
+  rows.forEach(r => counts[r.status] = (counts[r.status]||0)+1);
+  const bar = document.getElementById('filterbar');
+  let html = `<button data-f="" class="active">All (${rows.length})</button>`;
+  Object.keys(counts).forEach(s => {
+    html += `<button data-f="${s}">${s.replace(/_/g,' ')} (${counts[s]})</button>`;
+  });
+  bar.innerHTML = html;
+  bar.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => {
+      activeFilter = b.dataset.f || null;
+      bar.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      render();
+    });
+  });
+}
+
+renderCards();
+renderFilterbar();
+render();
+</script>
+</body>
+</html>
